@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>ear sight</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- stop weird characters being rendered by jquery -->
+		<meta charset="utf-8" />
+
+		<link rel="stylesheet" href="libs/bootstrap.min.css" />
+
+		<style>
+			html {
+				width: 100%;
+				height: 100%;
+			}
+
+			.clear { 
+				clear: both; 
+				width: 100%;
+			}
+
+			.ui-slider { 
+				float: left; 
+				width: 50%;
+			}
+
+			.toggle-form {
+				margin-left: auto;
+				margin-right: auto;
+				width: 80%;
+			}
+
+			.centred-form {
+				margin-left: auto;
+				margin-right: auto;
+				width: 80%;
+			}
+
+			.centred-form label { 
+				margin-left: 10px;
+				float: left; 
+				width: 7%;
+				line-height: 45px;
+			}
+		</style>
+
+		<!-- load in jquery library that we use to simplify initialisation/web page manipulation etc. -->
+		<script type="text/javascript" src="libs/jquery-2.1.0.min.js"></script>
+
+		<!-- Library that provides nice sliders that'll work on touch devices -->
+		<script type="text/javascript" src="libs/jquery.mobile-1.4.0.min.js"></script>
+		<link rel="stylesheet" href="libs/jquery.mobile-1.4.0.min.css" />
+
+		<!-- load in color space mapping library -->
+		<script type="text/javascript" src="libs/colorspaces.min.js"></script>
+
+		<!-- load up colour -> sound -->
+		<script text="text/javascript" src="image_handling.js"></script>
+		<script text="text/javascript" src="input_handling.js"></script>
+		<script text="text/javascript" src="audio.js"></script>
+		<script text="text/javascript" src="synth.js"></script>
+		<script text="text/javascript" src="colour_space_mappings.js"></script>
+		<script text="text/javascript" src="config_page.js"></script>
+
+		<script type="text/javascript" src="ear_sight.js"></script>
+	</head>
+
+	<body>
+		<canvas id="image-display"></canvas>
+
+		<div id="config-form">
+			<form id="take-pic">
+				<input type="file" capture="camera" accept="image/*" id="takePictureButton" />
+			</form>
+
+			<div id="colour-mag-mins-div" class="centred-form">
+				<h1>Minimum colour magnitudes</h1>
+				<form id="colour-mag-mins">
+    				<label for="white-mag-min">White</label>
+					<input type="range" name="white-mag-min" id="white-mag-min" value="0" min="0" max="1" step="0.01" data-highlight="true">
+					<div class="clear"></div>
+    				<label for="black-mag-min">Black</label>
+					<input type="range" name="black-mag-min" id="black-mag-min" value="0" min="0" max="1" step="0.01" data-highlight="true">
+					<div class="clear"></div>
+    				<label for="blue-mag-min">Blue</label>
+					<input type="range" name="blue-mag-min" id="blue-mag-min" value="0.2" min="0" max="1" step="0.01" data-highlight="true">
+					<div class="clear"></div>
+    				<label for="yellow-mag-min">Yellow</label>
+					<input type="range" name="yellow-mag-min" id="yellow-mag-min" value="0.2" min="0" max="1" step="0.01" data-highlight="true">
+					<div class="clear"></div>
+    				<label for="red-mag-min">Red</label>
+					<input type="range" name="red-mag-min" id="red-mag-min" value="0" min="0" max="1" step="0.01" data-highlight="true">
+					<div class="clear"></div>
+    				<label for="green-mag-min">Green</label>
+					<input type="range" name="green-mag-min" id="green-mag-min" value="0" min="0" max="1" step="0.01" data-highlight="true">
+					<div class="clear"></div>
+    				<label for="grey-mag-min">Grey</label>
+					<input type="range" name="grey-mag-min" id="grey-mag-min" value="0" min="0" max="1" step="0.01" data-highlight="true">
+					<div class="clear"></div>
+				</form>
+			</div>
+
+			<div id="colour-amp-mixer-div" class="centred-form">
+				<h1>Colour Amp Mixer</h1>
+				<form id="colour-amp-mixer">
+    				<label for="white-amp">White</label>
+					<input type="range" name="white-amp" id="white-amp" value="0.1" min="0" max="1" step="0.01" data-highlight="true">
+					<div class="clear"></div>
+    				<label for="black-amp">Black</label>
+					<input type="range" name="black-amp" id="black-amp" value="1" min="0" max="1" step="0.01" data-highlight="true">
+					<div class="clear"></div>
+    				<label for="blue-amp">Blue</label>
+					<input type="range" name="blue-amp" id="blue-amp" value="0.5" min="0" max="1" step="0.01" data-highlight="true">
+					<div class="clear"></div>
+    				<label for="yellow-amp">Yellow</label>
+					<input type="range" name="yellow-amp" id="yellow-amp" value="0.2" min="0" max="1" step="0.01" data-highlight="true">
+					<div class="clear"></div>
+    				<label for="red-amp">Red</label>
+					<input type="range" name="red-amp" id="red-amp" value="1" min="0" max="1" step="0.01" data-highlight="true">
+					<div class="clear"></div>
+    				<label for="green-amp">Green</label>
+					<input type="range" name="green-amp" id="green-amp" value="1" min="0" max="1" step="0.01" data-highlight="true">
+					<div class="clear"></div>
+    				<label for="grey-amp">Grey</label>
+					<input type="range" name="grey-amp" id="grey-amp" value="0.1" min="0" max="1" step="0.01" data-highlight="true">
+					<div class="clear"></div>
+				</form>
+			</div>
+
+			<div id="fade-times-div" class="centred-form">
+				<h1>Fade Times</h1>
+				<form id="fade-times">
+    				<label for="fade-time">Fade time</label>
+					<input type="range" name="fade-time" id="fade-time" value="0.001" min="0" max="1" step="0.001" data-highlight="true">
+					<div class="clear"></div>
+
+    				<label for="fade-out-time">Fade out time</label>
+					<input type="range" name="fade-out-time" id="fade-out-time" value="0.5" min="0" max="1" step="0.01" data-highlight="true">
+					<div class="clear"></div>
+				</form>
+			</div>
+
+			<div id="grey-sound-noise-colour-dev" class="toggle-form">
+				<h1>Grey sound</h1>
+				<form id="grey-sound-noise-colour">
+				<fieldset data-role="controlgroup" data-theme="b" data-type="horizontal">
+					<input type="radio" name="grey-colour-noise-sound" id="grey-sound-noise-pink" value="on" checked="checked">
+					<label for="grey-sound-noise-pink">Pink</label>
+					<input type="radio" name="grey-colour-noise-sound" id="grey-sound-noise-white" value="off">
+					<label for="grey-sound-noise-white">White</label>	
+				</fieldset>
+			</div>
+		</div>
+	</body>
+</html>
