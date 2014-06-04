@@ -53,7 +53,7 @@ function cieluvToRawColourMags(cieluv) {
 	// map CIELUV U to red/green magnitudes
 	//mags['red'] = Math.min(cieluv.u / 100, 1);
 	//mags['red'] = Math.min(cieluv.u / 100, 1) - 0.22;
-	console.log("redb: ", Math.min(cieluv.u / 100, 1));
+	//console.log("redb: ", Math.min(cieluv.u / 100, 1));
 	mags['red'] = (Math.min(cieluv.u / 100, 1) - 0.22) * 1.25;
 	//mags['green'] = Math.pow(Math.max(0, Math.min((cieluv.u * -1) / 80, 1)), 2);
 	mags['green'] = Math.max(0, Math.min((cieluv.u * -1) / 15, 1));

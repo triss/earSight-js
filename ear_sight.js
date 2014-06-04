@@ -1,5 +1,3 @@
-console.log("hello?");
-
 // the synth colours are played back through - it maps colour magnitudes 
 // to sound via it's update method
 var synth;
@@ -17,8 +15,6 @@ var display;
 
 // when the document loads
 $(document).ready(function() {
-    console.log("init");
-
 	// hide the image display
 	$("#imageDisplay").hide();
 
@@ -35,8 +31,6 @@ $(document).ready(function() {
 
 // called when a picture is successfuly loaded/taken
 function startUp(e) {
-    console.log("wtf?");
-
 	// if we've really got a picture
 	if(e.target.files.length == 1 && 
 	   e.target.files[0].type.indexOf("image/") == 0) {
