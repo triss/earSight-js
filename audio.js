@@ -90,7 +90,6 @@ function makeSoundPlayer(url) {
 			// once decoded set the soundplayer to play it
 			soundPlayer.buffer = buffer;
 			soundPlayer.loop = true;
-			console.log(url);
 		}, function(err) { 
 			console.log("Error loading soundfile " + url + " : " + err); 
 		});
