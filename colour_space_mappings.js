@@ -15,14 +15,25 @@
 function rgbToCIELUV(rgb) {
 	cieluv = $.colorspaces.make_color('sRGB', rgb).as('CIELUV');
 	
-	console.log("L: " + cieluv[1]);
-	console.log("U: " + cieluv[1]);
-	console.log("V: " + cieluv[2]);
-	console.log();
+	//console.log("L: " + cieluv[1]);
+	//console.log("U: " + cieluv[1]);
+	//console.log("V: " + cieluv[2]);
+	//console.log();
 
 	return { l: cieluv[0], u: cieluv[1], v: cieluv[2] };
 }
 
+// converts rgb values to CIELUV space via XYZ conversionin D50
+// rather D65
+// 
+// args:	rgb - an array of rgb values
+// returns: an object containing l, u and v values
+function rgbToCIELUVD50(rgb) {
+	d50xyz = $.colorspaces.make_color('sRGB', rgb).as('CIEXYZD50');
+    cieluv = $.colorspaces.make_color('CIEXYZ', d50xyz).as('CIELUV')
+
+	return { l: cieluv[0], u: cieluv[1], v: cieluv[2] };
+}
 
 // converts CIELUV values to Colour Mag space
 // 
@@ -79,6 +90,7 @@ function zeroLowColourMags(mags, mins) {
 		if(mags[c] < mins[c]) {
 			mags[c] = 0;
 		}
+    }
 
 	return mags;
 }

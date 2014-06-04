@@ -1,3 +1,5 @@
+console.log("hello?");
+
 // the synth colours are played back through - it maps colour magnitudes 
 // to sound via it's update method
 var synth;
@@ -15,6 +17,8 @@ var display;
 
 // when the document loads
 $(document).ready(function() {
+    console.log("init");
+
 	// hide the image display
 	$("#imageDisplay").hide();
 
@@ -31,6 +35,8 @@ $(document).ready(function() {
 
 // called when a picture is successfuly loaded/taken
 function startUp(e) {
+    console.log("wtf?");
+
 	// if we've really got a picture
 	if(e.target.files.length == 1 && 
 	   e.target.files[0].type.indexOf("image/") == 0) {
@@ -79,9 +85,9 @@ function configureColourSpaceMapping() {
 		var ctx = display.getContext("2d");
 
         // mini display for debugging
-		console.log("rgb("+rgb[0]+","+rgb[1]+","+rgb[2]+")");
-		ctx.fillStyle = "rgb("+(rgb[0]*255)+","+(rgb[1]*255)+","+(rgb[2]*255)+")";
-		ctx.fillRect(0, 0, 200, 200);
+		// console.log("rgb("+rgb[0]+","+rgb[1]+","+rgb[2]+")");
+		// ctx.fillStyle = "rgb("+(rgb[0]*255)+","+(rgb[1]*255)+","+(rgb[2]*255)+")";
+		// ctx.fillRect(0, 0, 200, 200);
 
 		var colourMags = zeroLowColourMags(
 				cieluvToRawColourMags(rgbToCIELUV(rgb)), 
