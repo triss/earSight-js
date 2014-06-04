@@ -79,6 +79,7 @@ function configureSynth() {
 
 function configureColourSpaceMapping() {
 	var minColourMags = getMinColourMagsFromConfig();
+    var colourFunction = getLuminanceModeFromConfigPage();
 
 	// set the selected colour space mapping function to be used
 	colourSpaceMapping = function(rgb) {
@@ -90,8 +91,7 @@ function configureColourSpaceMapping() {
 		// ctx.fillRect(0, 0, 200, 200);
 
 		var colourMags = zeroLowColourMags(
-				cieluvToRawColourMags(rgbToCIELUV(rgb)), 
-				minColourMags);
+				cieluvToRawColourMags(colourFunction(rgb)), minColourMags);
 
 		return colourMags;
 	};

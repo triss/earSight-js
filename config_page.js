@@ -29,7 +29,7 @@ function getColourAmpsFromConfig() {
 function getGreyColourNoiseFuncFromConfig() {
 	var makeNoiseFunc;
 	
-	if($("#grey-colour-noise-pink").val() == "on") {
+	if($("#grey-sound-noise-pink").val() == "on") {
 		makeNoiseFunc = makePinkNoiseGen;
 	} else {
 		makeNoiseFunc = makeWhiteNoiseGen;
@@ -44,4 +44,16 @@ function getFadeTimeFromConfigPage() {
 
 function getFadeOutTimeFromConfigPage() {
 	return parseFloat($("#fade-time").val());
+}
+
+function getLuminanceModeFromConfigPage() {
+	var colourFunction;
+	
+	if($("#luminance-d65").val() == "on") {
+		colourFunction = rgbToCIELUV;
+	} else {
+		colourFunction = rgbToCIELUVD50;
+	}
+
+	return colourFunction;
 }
